@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=4 uid="uid://beaugxduexhss"]
+
+[ext_resource type="PackedScene" uid="uid://cc0ghhnpl2opq" path="res://Player.tscn" id="1_woa2e"]
+[ext_resource type="Texture2D" uid="uid://cchyq8kpihres" path="res://Tilemap-Recovered-Sheet.png" id="2_ow3b0"]
+[ext_resource type="PackedScene" uid="uid://cqh7yp4ydeqwv" path="res://Map.tscn" id="2_ylq7w"]
+[ext_resource type="PackedScene" uid="uid://gcdy8vv75eh0" path="res://Torch.tscn" id="5_78610"]
+[ext_resource type="PackedScene" uid="uid://dwoiego3ljuku" path="res://ShadowBox.tscn" id="7_du1mg"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jb5if"]
+texture = ExtResource("2_ow3b0")
+18:10/0 = 0
+19:10/0 = 0
+19:11/0 = 0
+17:12/0 = 0
+18:12/0 = 0
+18:12/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+19:12/0 = 0
+19:12/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+20:12/0 = 0
+20:12/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+21:12/0 = 0
+17:13/0 = 0
+18:13/0 = 0
+19:13/0 = 0
+20:13/0 = 0
+21:13/0 = 0
+17:14/0 = 0
+18:14/0 = 0
+19:14/0 = 0
+20:14/0 = 0
+21:14/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_kyw17"]
+physics_layer_0/collision_layer = 3
+sources/0 = SubResource("TileSetAtlasSource_jb5if")
+
+[node name="Node2D" type="Node2D"]
+
+[node name="walls" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAD//wAAAAASAAwAAAD//wEAAAASAAwAAAD//wIAAAASAAwAAAD//wMAAAASAAwAAAD//wQAAAASAAwAAAD//wUAAAASAAwAAAD//wYAAAASAAwAAAD//wcAAAASAAwAAAD//wgAAAASAAwAAAANAP//AAASAAwAAAAMAP//AAASAAwAAAALAP//AAASAAwAAAAKAP//AAASAAwAAAAJAP//AAASAAwAAAAIAP//AAASAAwAAAAHAP//AAASAAwAAAAGAP//AAASAAwAAAAFAP//AAASAAwAAAAEAP//AAASAAwAAAADAP//AAASAAwAAAACAP//AAASAAwAAAABAP//AAASAAwAAAAAAP//AAASAAwAAAD/////AAASAAwAAAD+////AAASAAwAAAD9////AAASAAwAAAD8////AAASAAwAAAD7////AAASAAwAAAD6////AAASAAwAAAAMAP7/AAASAAwAAAALAP7/AAASAAwAAAAKAP7/AAASAAwAAAAJAP7/AAASAAwAAAAIAP7/AAASAAwAAAAHAP7/AAASAAwAAAAGAP7/AAASAAwAAAAFAP7/AAASAAwAAAAEAP7/AAASAAwAAAADAP7/AAASAAwAAAACAP7/AAASAAwAAAABAP7/AAASAAwAAAAAAP7/AAASAAwAAAAAAAgAAAATAAwAAAABAAgAAAATAAwAAAACAAgAAAATAAwAAAADAAgAAAATAAwAAAAEAAgAAAATAAwAAAAFAAgAAAATAAwAAAAGAAgAAAATAAwAAAAHAAgAAAATAAwAAAAIAAgAAAATAAwAAAAJAAgAAAATAAwAAAAKAAgAAAATAAwAAAALAAgAAAATAAwAAAAMAAgAAAATAAwAAAAOAP//AAATAAwAAAAPAP//AAATAAwAAAAQAP//AAATAAwAAAARAP//AAATAAwAAAASAP//AAATAAwAAAATAP//AAATAAwAAAATAAAAAAATAAwAAAATAAEAAAATAAwAAAATAAIAAAATAAwAAAATAAMAAAATAAwAAAATAAQAAAATAAwAAAATAAUAAAATAAwAAAATAAYAAAATAAwAAAATAAcAAAATAAwAAAATAAgAAAATAAwAAAASAAgAAAATAAwAAAARAAgAAAATAAwAAAAQAAgAAAATAAwAAAAPAAgAAAATAAwAAAAOAAgAAAATAAwAAAANAAgAAAATAAwAAAA=")
+tile_set = SubResource("TileSet_kyw17")
+
+[node name="MainContent" parent="." instance=ExtResource("2_ylq7w")]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.400698, 0.400698, 0.400698, 1)
+
+[node name="Torch" parent="." instance=ExtResource("5_78610")]
+position = Vector2(144, 94)
+
+[node name="Player" parent="." node_paths=PackedStringArray("tilemap") instance=ExtResource("1_woa2e")]
+position = Vector2(43, 69)
+tilemap = NodePath("../MainContent")
+
+[node name="RigidBody2D" parent="." instance=ExtResource("7_du1mg")]
+position = Vector2(83, 78)

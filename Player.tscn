@@ -1,0 +1,64 @@
+[gd_scene load_steps=10 format=3 uid="uid://cc0ghhnpl2opq"]
+
+[ext_resource type="Script" path="res://playerMovement.gd" id="1_a0jak"]
+[ext_resource type="Texture2D" uid="uid://b7qlkewu5cu0v" path="res://ShadowMovement-Sheet.png" id="2_6pxcn"]
+[ext_resource type="Script" path="res://tilemapcamera.gd" id="3_o8efo"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1pw3y"]
+radius = 5.0
+height = 16.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nr78n"]
+atlas = ExtResource("2_6pxcn")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tdl8c"]
+atlas = ExtResource("2_6pxcn")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mo6py"]
+atlas = ExtResource("2_6pxcn")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ydk0a"]
+atlas = ExtResource("2_6pxcn")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5428t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nr78n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tdl8c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mo6py")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ydk0a")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+z_index = 1
+collision_layer = 131
+collision_mask = 7
+script = ExtResource("1_a0jak")
+SPEED = 100.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("3_o8efo")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_1pw3y")
+debug_color = Color(0.350415, 0.494099, 0.970928, 1)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1, -4)
+scale = Vector2(0.828125, 0.859375)
+sprite_frames = SubResource("SpriteFrames_5428t")

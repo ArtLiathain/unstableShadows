@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://gcdy8vv75eh0"]
+
+[ext_resource type="Texture2D" uid="uid://cww83suodrusq" path="res://torch.png" id="1_hc8jj"]
+[ext_resource type="Script" path="res://shadow_detection.gd" id="1_jtx0a"]
+[ext_resource type="Script" path="res://area_detection.gd" id="3_vputw"]
+[ext_resource type="Script" path="res://raycastShadows.gd" id="4_og7gb"]
+
+[sub_resource type="Gradient" id="Gradient_3twrg"]
+offsets = PackedFloat32Array(0, 0.412869, 0.699732)
+colors = PackedColorArray(1, 1, 1, 1, 0.207692, 0.207692, 0.207692, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vmish"]
+gradient = SubResource("Gradient_3twrg")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xakmy"]
+radius = 32.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4x5j6"]
+size = Vector2(2.41509, 2.69471)
+
+[node name="Torch" type="PointLight2D"]
+position = Vector2(-1, -1)
+scale = Vector2(1.65625, 1.48438)
+color = Color(1, 0.687118, 0.336446, 1)
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_vmish")
+script = ExtResource("1_jtx0a")
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("3_vputw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_xakmy")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(0, -1.34736)
+collision_mask = 128
+script = ExtResource("4_og7gb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.556604, 0.58421)
+texture = ExtResource("1_hc8jj")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -1.34736)
+shape = SubResource("RectangleShape2D_4x5j6")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
